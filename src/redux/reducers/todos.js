@@ -1,23 +1,52 @@
-import { ADD_TODO, DONE_TODO } from "../actionTypes";
+import { ADD_TODO, DONE_TODO, UPDATE_TODO, DELETE_TODO, EDIT_TODO } from "../actionTypes";
 
-export default function(state = [], action) {
+const initialState = {
+  todos: [
+  ],
+  editing: {
+    isEditing: false,
+    todoId: null
+  }
+};
+
+export default function (state = initialState, action) {
 
   switch (action.type) {
 
     case ADD_TODO: {
-      return [...state, { ...action.payload}];
+      return {...state, todos:[ ...state.todos, action.payload] };
     }
-    
+
+    case UPDATE_TODO: {
+      const { id } = action.payload;
+      const todos = [...state].map(todo =>
+        todo.id === id ? { ...todo } : todo
+      );
+      return todos;      
+    }
+
+    case DELETE_TODO: {
+      const { id } = action.payload;
+      const filterTodos = state.todos.filter(todo => todo.id !== id);      
+      return {...state, todos: filterTodos}
+    }
+
     case DONE_TODO: {
       const { id } = action.payload;
-      const newTodos = [...state];
-      const index = state.findIndex(todo => todo.id === id);
-      newTodos[index].done = !newTodos[index].done;
-      return newTodos;
-    } 
+      const todos = [...state.todos].map(todo =>
+        todo.id === id ? { ...todo, done: !todo.done } : todo
+      );
+      return {...state, todos: todos}
+    }
+
+    case EDIT_TODO: {
+      const { id } = action.payload;    
+      const editing = [...state.isEditing, {todoId: id, isEditing: !state.isEditing}];
+      return editing;
+    }
 
     default:
       return state;
   }
-    
+
 }

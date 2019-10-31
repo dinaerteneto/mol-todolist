@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Form, Popup } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 
 import { addTodo } from "../redux/actions";
 
@@ -36,9 +36,10 @@ const TodoForm = ({ addTodo }) => {
           placeholder="Digite o título da tarefa"
         />
         
-        <Popup content='Adicionar tarefa' trigger={<Form.Button primary fluid type="submit" disabled={formik.errors.taskName}>
+        <Form.Button primary fluid type="submit" disabled={formik.errors.taskName}>
           Add
-        </Form.Button>} />
+        </Form.Button>
+        
       </Form.Group>
     </Form>
   );
@@ -48,4 +49,3 @@ export default connect(
   null,
   { addTodo }
 )(TodoForm);
-// export default AddTodo;
