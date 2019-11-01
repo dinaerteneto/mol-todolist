@@ -40,9 +40,9 @@ export default function (state = initialState, action) {
     }
 
     case EDIT_TODO: {
-      const { id } = action.payload;    
-      const editing = [...state.isEditing, {todoId: id, isEditing: !state.isEditing}];
-      return editing;
+      const { id } = action.payload;
+      console.log({...state, editing: {todoId: id, isEditing: !state.isEditing}}, 'edit todo')
+      return {...state, editing: {todoId: id, isEditing: !state.isEditing}};
     }
 
     default:

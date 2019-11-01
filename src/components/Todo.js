@@ -1,50 +1,75 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, List, Checkbox, Grid, Icon } from 'semantic-ui-react'
+import { Button, List, Checkbox, Grid, Icon, Input } from 'semantic-ui-react'
 import { doneTodo, delTodo, editTodo } from "../redux/actions";
 
-const Todo = ({ todo, doneTodo, delTodo, editTodo }) => (
-  <List.Item>
-    <List.Content>
+class Todo extends React.Component {
 
-      <Grid
-        centered
-        columns={2}
-        padded
-        stackable
-        textAlign='center'
-      >
-        <Grid.Column>
-          <Checkbox
-            label={todo.name}
-            checked={todo.done}
-            onChange={() => doneTodo(todo.id)}
-          />
-        </Grid.Column>
+  constructor(props) {
+    super(props);
+  }
 
-        <Grid.Column>
-          <Button icon
-            size='mini'
-            color='yellow' 
-            onClick={() => editTodo(todo.id)}
-            >
-            <Icon name='edit' />
-          </Button>
-          <Button icon
-            size='mini'
-            color='red'
-            onClick={() => delTodo(todo.id)}
+  render() {
+    const { todo, doneTodo, delTodo, editTodo } = this.props;
+    let item = <Checkbox
+      label={todo.name}
+      checked={todo.done}
+      onChange={() => doneTodo(todo.id)}
+    />;
+
+    console.log(this.props)
+
+    if (true) {
+      item = <Input
+        key={todo.key}
+        defaultValue={todo.name}
+//        onBlur={event => this.handleBlur(todo.id, event)}
+//        onKeyUp={event => this.handleKeyUp(todo.id, event)}
+        autoFocus
+      />
+    }
+
+    return (
+      <List.Item>
+        <List.Content>
+
+          <Grid
+            centered
+            columns={2}
+            padded
+            stackable
+            textAlign='center'
           >
-            <Icon name='trash alternate' />
-          </Button>
-        </Grid.Column>
+            <Grid.Column>
+              {item}
+            </Grid.Column>
 
-      </Grid>
+            <Grid.Column>
+              <Button icon
+                size='mini'
+                color='yellow'
+                onClick={() => editTodo(todo.id)}
+              >
+                <Icon name='edit' />
+              </Button>
+              <Button icon
+                size='mini'
+                color='red'
+                onClick={() => delTodo(todo.id)}
+              >
+                <Icon name='trash alternate' />
+              </Button>
+            </Grid.Column>
 
-    </List.Content>
+          </Grid>
 
-  </List.Item>
-);
+        </List.Content>
+
+      </List.Item>
+    )
+  }
+
+}
 
 export default connect(
   null,
