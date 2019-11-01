@@ -15,7 +15,7 @@ const FixedMenuLayout = () => (
             TodoList - MOL (Mediação Online)
           </Menu.Item>
           <Menu.Item><Link to="/">Home</Link></Menu.Item>
-          <Menu.Item><Link to="/about">About</Link></Menu.Item>
+          <Menu.Item><Link to="/about">Sobre</Link></Menu.Item>
         </Container>
       </Menu>
     </div>

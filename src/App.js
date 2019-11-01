@@ -24,7 +24,13 @@ export default function App() {
           </React.Fragment>
         )} />
 
-        <Route path="/about" component={About} />
+        <Route exact path="/about" render={props => (
+          <React.Fragment>
+          <Container style={{ marginTop: '7em' }}>
+            <About />
+          </Container>
+        </React.Fragment>          
+        )} />
       </div>
     </div>
   </Router>
