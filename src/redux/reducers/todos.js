@@ -19,10 +19,11 @@ export default function (state = initialState, action) {
 
     case UPDATE_TODO: {
       const { id } = action.payload;
-      const todos = [...state].map(todo =>
-        todo.id === id ? { ...todo } : todo
+      const payload = action.payload;
+      const todos = [...state.todos].map(todo =>
+        todo.id === id ? { ...todo, ...payload } : todo
       );
-      return todos;      
+      return {...state, todos: todos};
     }
 
     case DELETE_TODO: {
@@ -41,8 +42,7 @@ export default function (state = initialState, action) {
 
     case EDIT_TODO: {
       const { id } = action.payload;
-      console.log({...state, editing: {todoId: id, isEditing: !state.isEditing}}, 'edit todo')
-      return {...state, editing: {todoId: id, isEditing: !state.isEditing}};
+      return {...state, editing: {todoId: id, isEditing: !state.editing.isEditing}};
     }
 
     default:

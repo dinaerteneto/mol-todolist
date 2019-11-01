@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Button, List, Checkbox, Grid, Icon, Input } from 'semantic-ui-react'
-import { doneTodo, delTodo, editTodo } from "../redux/actions";
+import { doneTodo, delTodo, editTodo, updTodo } from "../redux/actions";
 
 class Todo extends React.Component {
 
@@ -9,22 +9,37 @@ class Todo extends React.Component {
     super(props);
   }
 
+  handleBlur = (id, event) => {
+    const name = event.target.value;
+    this.updItem(id, name);
+  }
+
+  handleKeyUp = (id, event) => {
+    if(event.keyCode === 13) {
+      const name = event.target.value;
+      this.updItem(id, name);
+    }
+  }
+
+  updItem = (id, name) => {
+    this.props.editTodo(id);
+    this.props.updTodo(id, name);
+  }
+
   render() {
-    const { todo, doneTodo, delTodo, editTodo } = this.props;
+    const { todo, doneTodo, delTodo, editTodo, editing } = this.props;
     let item = <Checkbox
       label={todo.name}
       checked={todo.done}
       onChange={() => doneTodo(todo.id)}
     />;
 
-    console.log(this.props)
-
-    if (true) {
+    if (editing.isEditing && editing.todoId === todo.id) {
       item = <Input
         key={todo.key}
         defaultValue={todo.name}
-//        onBlur={event => this.handleBlur(todo.id, event)}
-//        onKeyUp={event => this.handleKeyUp(todo.id, event)}
+        onBlur={event => this.handleBlur(todo.id, event)}
+        onKeyUp={event => this.handleKeyUp(todo.id, event)}
         autoFocus
       />
     }
@@ -49,6 +64,7 @@ class Todo extends React.Component {
                 size='mini'
                 color='yellow'
                 onClick={() => editTodo(todo.id)}
+                disabled={editing.isEditing}
               >
                 <Icon name='edit' />
               </Button>
@@ -56,6 +72,7 @@ class Todo extends React.Component {
                 size='mini'
                 color='red'
                 onClick={() => delTodo(todo.id)}
+                disabled={editing.isEditing}
               >
                 <Icon name='trash alternate' />
               </Button>
@@ -73,5 +90,5 @@ class Todo extends React.Component {
 
 export default connect(
   null,
-  { doneTodo, delTodo, editTodo }
+  { doneTodo, delTodo, editTodo, updTodo }
 )(Todo);

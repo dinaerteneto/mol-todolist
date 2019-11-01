@@ -21,9 +21,9 @@ export const doneTodo = id => ({
   payload: { id }
 });
 
-export const updTodo = id => ({
+export const updTodo = (id, name) => ({
   type: UPDATE_TODO,
-  payload: { id }
+  payload: { id, name }
 })
 
 export const delTodo = id => ({

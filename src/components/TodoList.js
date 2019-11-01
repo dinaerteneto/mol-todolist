@@ -9,7 +9,7 @@ const TodoList = ({ todos }) => (
   <List celled>
     {todos.todos && todos.todos.length
       ? todos.todos.map((todo, index) => {
-        return <Todo key={`todo-${todo.id}`} todo={todo} editing={todo.editing} />;
+        return <Todo key={`todo-${todo.id}`} todo={todo} editing={todos.editing} />;
       })
       : "No todos, yay!"}
   </List>
