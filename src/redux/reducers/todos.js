@@ -1,4 +1,11 @@
-import { ADD_TODO, DONE_TODO, UPDATE_TODO, DELETE_TODO, EDIT_TODO } from "../actionTypes";
+import { 
+  ADD_TODO, 
+  DONE_TODO, 
+  UPDATE_TODO, 
+  DELETE_TODO, 
+  EDIT_TODO, 
+  REORDER_TODO 
+} from "../actionTypes";
 
 const initialState = {
   todos: [
@@ -16,6 +23,7 @@ export default function (state = initialState, action) {
     case ADD_TODO: {
       return {...state, todos:[ ...state.todos, action.payload] };
     }
+      break;
 
     case UPDATE_TODO: {
       const { id } = action.payload;
@@ -25,12 +33,14 @@ export default function (state = initialState, action) {
       );
       return {...state, todos: todos};
     }
+    break;
 
     case DELETE_TODO: {
       const { id } = action.payload;
       const filterTodos = state.todos.filter(todo => todo.id !== id);      
       return {...state, todos: filterTodos}
     }
+    break;
 
     case DONE_TODO: {
       const { id } = action.payload;
@@ -39,14 +49,25 @@ export default function (state = initialState, action) {
       );
       return {...state, todos: todos}
     }
+    break;
 
     case EDIT_TODO: {
       const { id } = action.payload;
       return {...state, editing: {todoId: id, isEditing: !state.editing.isEditing}};
     }
+    break;
+
+    case REORDER_TODO: {
+      console.log('reducers - REORDER_TODO')
+      console.log(action.payload)
+      // console.log({...state, todos: arrayMove(state.todos, oldIndex, newIndex)});
+      // return {...state, todos: arrayMove(todos, oldIndex, newIndex)}
+    }
+    break;
 
     default:
       return state;
+      break;
   }
 
 }

@@ -1,4 +1,11 @@
-import { ADD_TODO, DONE_TODO, UPDATE_TODO, DELETE_TODO, EDIT_TODO } from "./actionTypes";
+import { 
+  ADD_TODO, 
+  DONE_TODO, 
+  UPDATE_TODO, 
+  DELETE_TODO, 
+  EDIT_TODO, 
+  REORDER_TODO 
+} from "./actionTypes";
 
 let nextTodoId = 0;
 
@@ -34,4 +41,9 @@ export const delTodo = id => ({
 export const editTodo = id => ({
   type: EDIT_TODO,
   payload: { id }
+});
+
+export const reorderTodo = todos => ({
+  type: REORDER_TODO,
+  payload: { todos }
 });

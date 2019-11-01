@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, List, Checkbox, Grid, Icon, Input } from 'semantic-ui-react'
+import { Button, List, Checkbox, Grid, Icon, Input } from "semantic-ui-react";
 import { doneTodo, delTodo, editTodo, updTodo } from "../redux/actions";
 
 class Todo extends React.Component {
