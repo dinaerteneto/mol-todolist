@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Button, List, Checkbox, Grid, Icon, Input } from "semantic-ui-react";
+import cx from "classnames";
 import { doneTodo, delTodo, editTodo, updTodo } from "../redux/actions";
 
 class Todo extends React.Component {
@@ -32,6 +33,7 @@ class Todo extends React.Component {
       label={todo.name}
       checked={todo.done}
       onChange={() => doneTodo(todo.id)}
+      className={cx('', todo && todo.done && "todo-item__text--completed")}
     />;
 
     if (editing.isEditing && editing.todoId === todo.id) {
@@ -64,7 +66,7 @@ class Todo extends React.Component {
                 size='mini'
                 color='yellow'
                 onClick={() => editTodo(todo.id)}
-                disabled={editing.isEditing}
+                disabled={editing.isEditing || todo.done}
               >
                 <Icon name='edit' />
               </Button>
@@ -72,7 +74,7 @@ class Todo extends React.Component {
                 size='mini'
                 color='red'
                 onClick={() => delTodo(todo.id)}
-                disabled={editing.isEditing}
+                disabled={editing.isEditing || todo.done}
               >
                 <Icon name='trash alternate' />
               </Button>

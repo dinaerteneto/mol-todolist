@@ -8,6 +8,8 @@ import TodoList from "./components/TodoList";
 import FixedMenuLayout from "./components/layouts/FixedMenu";
 import About from "./pages/About";
 
+import "./styles.css";
+
 export default function App() {
   return (
     <Router>
